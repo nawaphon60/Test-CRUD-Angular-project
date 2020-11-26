@@ -1,0 +1,10 @@
+[nz-button] {
+    margin-right: 8px;
+    margin-bottom: 12px;
+}
+
+.btn-save {
+    background-color: #1d2023; 
+    color: rgb(199, 199, 199);
+    border-radius: 5px;
+}

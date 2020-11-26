@@ -1,0 +1,39 @@
+<form>
+    <nz-form-item>
+
+        <!-- Username -->
+        <nz-input-group class="mb-3" [nzPrefix]="prefixTemplateUser">
+            <input class="ml-3" type="text" nz-input placeholder="Input username" name="username"
+                [(ngModel)]="save_model.username" />
+        </nz-input-group>
+        <ng-template #prefixTemplateUser><i nz-icon nzType="user"></i></ng-template>
+
+        <!-- Email -->
+        <nz-input-group class="mb-3" [nzPrefix]="prefixTemplateEmail">
+            <input class="ml-3" nz-input [(ngModel)]="save_model.email" placeholder="Input email" name="email"/>
+        </nz-input-group>
+        <ng-template #prefixTemplateEmail><i nz-icon nzType="mail" nzTheme="outline"></i></ng-template>
+
+        <!-- Password -->
+        <nz-input-group [nzPrefix]="prefixTemplatePassword" [nzSuffix]="suffixTemplatepasswordVisible">
+            <input class="ml-3" nz-input [type]="passwordVisible ? 'text' : 'password'" name="password"
+                [(ngModel)]="save_model.password" placeholder="Input password" />
+        </nz-input-group>
+        <ng-template #prefixTemplatePassword><i nz-icon nzType="unlock" nzTheme="outline"></i></ng-template>
+        <ng-template #suffixTemplatepasswordVisible>
+            <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                (click)="passwordVisible = !passwordVisible"></i>
+        </ng-template>
+
+        <!-- Button -->
+        <div class="col-12 text-right mt-3 pl-0 pr-0">
+            <!-- <button nz-button class="btn-save mr-0" (click)="create()" *ngIf="state == 'create'">CREATE</button> -->
+            <!-- <button nz-button class="btn-save mr-0" (click)="update(save_model.id)" *ngIf="state == 'edit'">SAVE</button> -->
+            <button nz-button class="btn-save mr-0" (click)="state=='create'?create():update(save_model.id)">
+                {{state=='create'?'CREATE':'SAVE'}}
+            </button>
+        </div>
+
+    </nz-form-item>
+</form>
+
