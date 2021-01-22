@@ -11,8 +11,21 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 })
 export class UserDataComponent implements OnInit, AfterViewInit {
 
-  user_data: any[] = []
+  model_search = {
+    name: "",
+    email: "",
+    password: "",
+    created_at: "",
+    updated_at: "",
+    role: "",
+    page: 1,
+    perpage: 10,
+    search: ""
+  }
+  listusers: any[] = []
   isLoading = true
+  count: any = null
+  page = null
 
   constructor(
     private userDataService: UserDataService,
@@ -30,23 +43,26 @@ export class UserDataComponent implements OnInit, AfterViewInit {
 
   async getAllUserdata() {
 
-    let res: any[] = []
-
+    let res: any = null
     try {
-      res = await this.userDataService.getAll() as any[]
-      this.user_data = res
+      res = await this.userDataService.getAll({})
+      console.log(res);
+
+      this.listusers = res.data;
+      this.count = res.count;
+
     } catch (err) {
 
     }
 
-    if (res.length > 0) {
-      console.log('sdsddd')
-    }
+    // if (res.length == 0) {
+    //   console.log('sdsddd')
+    // }
 
     this.isLoading = false
 
     // .then((res: any) => {
-    //   this.user_data = res
+    //   this.model_search = res
     // })
     // .catch((err: any) => {
 
@@ -92,7 +108,7 @@ export class UserDataComponent implements OnInit, AfterViewInit {
         state: "create",
         model: {
           id: null,
-          username: "",
+          name: "",
           email: "",
           password: ""
         }
@@ -116,7 +132,7 @@ export class UserDataComponent implements OnInit, AfterViewInit {
 
     this.nzModalService.confirm({
       nzTitle: 'Confirm',
-      nzContent: 'Bla bla ...',
+      nzContent: 'Are you sure to delete?',
       nzOkText: 'OK',
       nzCancelText: 'Cancel',
       nzOnOk: () => {
@@ -127,12 +143,41 @@ export class UserDataComponent implements OnInit, AfterViewInit {
           .catch((err: any) => {
 
           })
-
-          
       }
     });
+  }
 
+  onPageIndexChange($event) {
+
+    this.model_search.page = $event
+
+    this.userDataService.getAll(this.model_search).then((res: any) => {
+
+      this.count = res.count;
+      this.listusers = res.data
+      console.log(res);
+      console.log(this.model_search)
+
+    })
+      .catch((err: any) => {
+
+      })
 
   }
 
+  Selected() {
+
+    this.userDataService.getAll(this.model_search).then((res: any) => {
+      console.log(res);
+
+      this.count = res.count;
+      this.listusers = res.data
+
+    })
+      .catch((err: any) => {
+
+      })
+
+    // this.isLoading = false
+  }
 }

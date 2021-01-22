@@ -2,11 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserDataService } from 'src/app/Services/user-data.service';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { Observable, Observer } from 'rxjs';
 
 interface IModelSave{
-  username: string;
+  name: string;
   email: string;
   password: string;
+  role: string;
 }
 
 const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -21,46 +24,52 @@ export class CreateUserComponent implements OnInit {
   @Input() state: string = ""
   @Input() model:any
 
-  save_model:any
+  save_model: any;
   passwordVisible = false;
   password?: string;
-  username:string = ""
+  name:string = ""
   user_data: any[] = []
+  loading = false;
+  avatarUrl?: string;
 
   constructor(
     private userDataService: UserDataService,
     private nzDrawerRef: NzDrawerRef,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private msg: NzMessageService
   ) { }
 
   ngOnInit(): void {
     this.save_model = {
       ...this.model
     }
-    // this.save_model = this.model
+  // this.save_model = this.model
   }
 
   create() {
     let model: IModelSave = {
-      username: this.save_model.username,
+      name: this.save_model.name,
       email: this.save_model.email,
-      password: this.save_model.password
+      password: this.save_model.password,
+      role: this.save_model.role
     }
     console.log(model)
-    if(!model.username.trim()){
-      this.message.create('error', 'fddgfdgdfg');
+
+    if(!model.name.trim()){
+      this.message.create('error', 'กรุณากรอกชื่อ');
       return
     }
      
     if(!model.email.trim() || !re.test(model.email)){
-      this.message.create('error', model.email);
+      this.message.create('error', 'กรุณากรอก email');
       return
     }
+    
     // return
     if(this.state == "create"){
       this.userDataService.create(model).then((res:any)=>{
       
-        this.username = ""
+        this.name = ""
         // this.getAllUserdata()
         this.nzDrawerRef.close(true)
       })
@@ -70,9 +79,9 @@ export class CreateUserComponent implements OnInit {
     }
   }
 
-  update(id:number) {
+  update(id:string) {
     let model = {
-      username: this.save_model.username,
+      name: this.save_model.name,
       email: this.save_model.email,
       password: this.save_model.password
     }
@@ -81,7 +90,7 @@ export class CreateUserComponent implements OnInit {
     if(this.state == "edit"){
       this.userDataService.update(model, id).then((res:any)=>{
       
-        // this.username = ""
+        // this.name = ""
         // this.getAllUserdata()
         this.nzDrawerRef.close(true)
       })
@@ -90,8 +99,53 @@ export class CreateUserComponent implements OnInit {
       })
     }
   }
-  
+
+  beforeUpload = (file: NzUploadFile, _fileList: NzUploadFile[]) => {
+    return new Observable((observer: Observer<boolean>) => {
+      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+      if (!isJpgOrPng) {
+        this.msg.error('You can only upload JPG file!');
+        observer.complete();
+        return;
+      }
+      const isLt2M = file.size! / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        this.msg.error('Image must smaller than 2MB!');
+        observer.complete();
+        return;
+      }
+      observer.next(isJpgOrPng && isLt2M);
+      observer.complete();
+    });
+  };
+
+  private getBase64(img: File, callback: (img: string) => void): void {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result!.toString()));
+    reader.readAsDataURL(img);
+  }
+
+  handleChange(info: { file: NzUploadFile }): void {
+    switch (info.file.status) {
+      case 'uploading':
+        this.loading = true;
+        break;
+      case 'done':
+        // Get this url from response in real world.
+        this.getBase64(info.file!.originFileObj!, (img: string) => {
+          this.loading = false;
+          this.avatarUrl = img;
+        });
+        break;
+      case 'error':
+        this.msg.error('Network error');
+        this.loading = false;
+        break;
+    }
+  }
+    
 }
+
 
   
   

@@ -8,3 +8,7 @@
     color: rgb(199, 199, 199);
     border-radius: 5px;
 }
+
+nz-select {
+    width: 120px !important;
+}

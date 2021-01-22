@@ -12,6 +12,9 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzInputModule } from 'ng-zorro-antd/input';
+
 
 @NgModule({
   declarations: [UserDataComponent],
@@ -26,7 +29,9 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
     NzDrawerModule,
     NzSkeletonModule,
     NzModalModule,
-    NzMessageModule
+    NzMessageModule,
+    NzPaginationModule,
+    NzInputModule
   ]
 })
 export class UserDataModule { }

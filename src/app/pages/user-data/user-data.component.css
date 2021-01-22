@@ -39,3 +39,7 @@ nz-footer {
 ::ng-deep .menu-icon svg{
     margin-bottom: 8px;
 }
+
+.ant-input-affix-wrapper {
+    width: 500px;
+}
