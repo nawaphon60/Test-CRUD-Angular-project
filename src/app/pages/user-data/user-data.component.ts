@@ -114,9 +114,6 @@ export class UserDataComponent implements OnInit, AfterViewInit {
         }
       },
       nzWidth: '40%',
-      nzBodyStyle: {
-
-      },
       nzWrapClassName: 'TESTT YYYY'
     })
       .afterClose.subscribe((r: boolean) => {
