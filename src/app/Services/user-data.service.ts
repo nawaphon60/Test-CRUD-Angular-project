@@ -17,8 +17,17 @@ export class UserDataService {
     return this.http.post(`${api_url}/users/search`, data).toPromise()
   }
 
-  getByID(id: any) {
-    return this.http.get(`${api_url}/user_data/${id}`).toPromise()
+  getUserData() {
+
+    let token = localStorage.getItem('token')
+    let token_json = JSON.parse(token)
+
+    let _header = {
+    headers: {
+      authorization: `Bearer ${token_json.token}`
+    }
+  }
+    return this.http.get(`${api_url}/users/profile`, _header).toPromise()
   }
 
   // deleteByID(id: any) {

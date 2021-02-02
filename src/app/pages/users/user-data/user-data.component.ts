@@ -3,6 +3,7 @@ import { UserDataService } from 'src/app/Services/user-data.service'
 import { CreateUserComponent } from 'src/app/components/create-user/create-user.component'
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-data',
@@ -30,7 +31,8 @@ export class UserDataComponent implements OnInit, AfterViewInit {
   constructor(
     private userDataService: UserDataService,
     private nzDrawerService: NzDrawerService,
-    private nzModalService: NzModalService
+    private nzModalService: NzModalService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +41,11 @@ export class UserDataComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.getAllUserdata()
+  }
+
+  loguot(){
+    localStorage.removeItem('token')
+    this.router.navigate(['/login'])
   }
 
   async getAllUserdata() {
@@ -110,7 +117,8 @@ export class UserDataComponent implements OnInit, AfterViewInit {
           id: null,
           name: "",
           email: "",
-          password: ""
+          password: "",
+          image: ""
         }
       },
       nzWidth: '40%',

@@ -10,9 +10,8 @@ import { LoginService } from 'src/app/services/login.service';
 export class LoginComponent implements OnInit {
 
   loginUserData = {
-    name: "",
-    password: "1234",
-    email: "nawaphon@gmail.com"
+    email: "nawaphon@gmail.com",
+    password: "1234"
   }
 
   constructor(
@@ -32,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(model).then((res:any)=>{ 
       
       localStorage.setItem('token', JSON.stringify(res))
-      this.router.navigate(['/user-data'])
+      this.router.navigate(['/users/user-data'])
 
     }).catch((err:any)=>{
 

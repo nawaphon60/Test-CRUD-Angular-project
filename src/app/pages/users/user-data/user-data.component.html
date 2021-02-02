@@ -1,0 +1,93 @@
+<div class="row m-0 justify-content-between">
+    <nz-input-group class="mb-3" [nzPrefix]="prefixTemplateSearch">
+        <input nz-input class="ml-3" nzSize="default" [(ngModel)]="model_search.search"
+            (keyup.enter)="Selected()" placeholder="Search" name="search">
+    </nz-input-group>
+    <ng-template #prefixTemplateSearch><i nz-icon nzType="search" nzTheme="outline"></i></ng-template>
+
+    <!-- <div>
+        <input nz-input nzSize="default" placeholder="Searchs" style="max-width: 150px;"
+            [(ngModel)]="model_search.search" (keyup.enter)="Selected($event)">
+    </div>> -->
+
+    <button nz-button nzType="default" (click)="createUser()" style="
+    border-radius: 5px;
+    font-weight: 500;
+    ">
+        Create User</button>
+</div>
+
+<nz-skeleton *ngIf="isLoading" [nzActive]="true"></nz-skeleton>
+<table *ngIf="!isLoading" nzData="listusers" class="table col-12"
+    style="box-shadow: 2px 2px 10px 2px rgba(0,0,0,0.2);">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Created at</th>
+            <th scope="col">Updated at</th>
+            <th scope="col">Role</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let obj of listusers">
+            <th class="pt-3">{{obj.id}}</th>
+            <td class="pt-3">{{obj.name}}</td>
+            <td class="pt-3">{{obj.email}}</td>
+            <td class="pt-3">{{obj.created_at == null? 'null' : obj.created_at  | date: 'medium'}}</td>
+            <td class="pt-3">{{obj.updated_at == null? 'null' : obj.updated_at | date: 'medium'}}</td>
+            <td class="pt-3">{{obj.role}}</td>
+            <td>
+                <div class="row justify-content-center pl-0 pr-0 ml-0 mr-0">
+                    <!-- Edit Button -->
+                    <div class="mr-4" (click)="editUser(obj)" style="
+                            background-color: rgb(235, 235, 235);
+                            color: #6495ed;
+                            height: 35px;
+                            width: 35px;
+                            text-align: center;
+                            padding: 5px 8px;
+                            border-radius: 5px;
+                            cursor: pointer;">
+                        <i nz-icon nzType="edit" nzTheme="fill" style="font-size: 20px;"></i>
+                    </div>
+
+                    <!-- Delete Button -->
+                    <div (click)="deleteUser(obj.id)" style="
+                            background-color: rgb(235, 235, 235);
+                            color: rgb(138, 138, 138);
+                            height: 35px;
+                            width: 35px;
+                            text-align: center;
+                            padding: 5px 8px;
+                            border-radius: 5px;
+                            cursor: pointer;">
+                        <i nz-icon nzType="delete" nzTheme="fill" style="font-size: 20px;"></i>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div>
+    <nz-pagination [nzPageIndex]="1" [nzTotal]="count" [nzPageSize]="10" [nzShowTotal]="rangeTemplate"
+        (nzPageIndexChange)="onPageIndexChange($event)" id="demo"></nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total> {{ range[0] }}-{{ range[1] }} of {{ total
+        }} items
+    </ng-template>
+</div>
+
+
+<!-- <div class="row col-12 ml-1 pl-0 pr-0 pr-o mb-2"> -->
+
+<!-- <div class="card-body row col-11 m-0">
+        <div class="col-1 p-0"><span class="obj-span">ID:</span> {{obj.id}}</div>
+        <div class="col-4 p-0">name: {{obj.name}}</div>
+        <div class="col-4 p-0">Email: {{obj.email}}</div>
+        <div class="col-3 p-0">Password: {{obj.password}}</div>
+    </div> -->
+
+<!-- </div> -->

@@ -4,3 +4,7 @@ button:focus {
     /* outline: 1px dotted; */
     outline: none !important;
 }
+
+html, body {
+    font-family: "Poppins","Prompt";
+}

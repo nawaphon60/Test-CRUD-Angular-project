@@ -1,0 +1,45 @@
+.layout {
+    min-height: 100vh;
+}
+
+.logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+}
+
+nz-header {
+    background: #fff;
+    padding: 0;
+}
+
+nz-content {
+    margin: 24px 16px 0;
+}
+
+.inner-content {
+    padding: 24px;
+    background: #fff;
+    min-height: 100%;
+}
+
+nz-footer {
+    text-align: center;
+}
+
+.ant-menu-item-selected {
+    background-color: #334454 !important;
+}
+
+.obj-span {
+    color: #334454;
+}
+
+/* active is file here */
+::ng-deep .menu-icon svg{
+    margin-bottom: 8px;
+}
+
+.ant-input-affix-wrapper {
+    width: 500px;
+}

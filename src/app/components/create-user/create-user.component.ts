@@ -4,12 +4,14 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserDataService } from 'src/app/Services/user-data.service';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 interface IModelSave{
   name: string;
   email: string;
   password: string;
   role: string;
+  image: string;
 }
 
 const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -23,7 +25,7 @@ export class CreateUserComponent implements OnInit {
 
   @Input() state: string = ""
   @Input() model:any
-
+  environment = environment
   save_model: any;
   passwordVisible = false;
   password?: string;
@@ -51,7 +53,8 @@ export class CreateUserComponent implements OnInit {
       name: this.save_model.name,
       email: this.save_model.email,
       password: this.save_model.password,
-      role: this.save_model.role
+      role: this.save_model.role,
+      image: this.save_model.image
     }
     console.log(model)
 
@@ -126,11 +129,14 @@ export class CreateUserComponent implements OnInit {
   }
 
   handleChange(info: { file: NzUploadFile }): void {
+    console.log(info);
+    
     switch (info.file.status) {
       case 'uploading':
         this.loading = true;
         break;
       case 'done':
+        this.save_model.image = info.file.response.patch
         // Get this url from response in real world.
         this.getBase64(info.file!.originFileObj!, (img: string) => {
           this.loading = false;

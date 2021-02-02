@@ -1,0 +1,47 @@
+<nz-layout class="layout">
+    <nz-sider nzCollapsible nzBreakpoint="lg" [nzCollapsedWidth]="0">
+        <div class="logo"></div>
+        <ul nz-menu nzTheme="dark" nzMode="inline">
+            <li nz-menu-item>
+                <a href="http://localhost:4200/users/user-data">
+                    <i nz-icon nzType="user" class="menu-icon"></i>
+                    <span>USER</span>
+                </a>
+            </li>
+            <li nz-menu-item>
+                <a href="http://localhost:4200/users/profile">
+                    <i nz-icon nzType="profile" class="menu-icon"></i>
+                    <span>PROFILE</span>
+                </a>
+            </li>
+            <li nz-menu-item>
+                <i nz-icon nzType="upload" class=" menu-icon"></i>
+                <span>NAV 3</span>
+            </li>
+            <li nz-menu-item>
+                <i nz-icon nzType="user" class="  menu-icon"></i>
+                <span>NAV 4</span>
+            </li>
+        </ul>
+    </nz-sider>
+    
+    <nz-layout>
+        <nz-header class="text-right pr-3">
+            <button nz-button nzType="default"  style="
+            border-radius: 5px;
+            font-weight: 500;
+            "
+            (click)="loguot()"
+            >  
+                Log Out
+            </button>
+        </nz-header>
+        <nz-content>
+            <div class="inner-content">
+                <router-outlet></router-outlet>
+            </div>
+        </nz-content>
+        <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+    </nz-layout>
+</nz-layout>
+

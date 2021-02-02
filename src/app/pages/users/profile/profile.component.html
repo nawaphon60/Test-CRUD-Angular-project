@@ -1,0 +1,16 @@
+<div class="header">
+    <div class="card p-3 col-11" *ngFor="let userdata of userdata.data">
+
+        <h2>Profile</h2>
+        <p>Name : {{userdata.name}} </p>
+        <p>Email : {{userdata.email}}</p>
+        <p>Role : {{userdata.role}}</p>
+        <p>Position : {{userdata.work_name}}</p>
+        <p>Created : {{userdata.created_at == null? 'null' : userdata.created_at | date: 'medium'}}</p>
+        <p>Updated : {{userdata.updated_at == null? 'null' : userdata.updated_at | date: 'medium'}}</p>
+    
+    </div>
+</div>
+
+
+

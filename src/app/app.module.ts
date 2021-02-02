@@ -10,13 +10,15 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { UploadAvatarComponent } from './components/upload-avatar/upload-avatar.component';
 
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UploadAvatarComponent
   ],
   imports: [
     BrowserModule,
