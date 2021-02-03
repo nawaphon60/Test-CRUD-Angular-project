@@ -6,11 +6,12 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-interface IModelSave{
+interface IModelSave {
   name: string;
   email: string;
   password: string;
   role: string;
+  position: string;
   image: string;
 }
 
@@ -24,12 +25,12 @@ const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^
 export class CreateUserComponent implements OnInit {
 
   @Input() state: string = ""
-  @Input() model:any
+  @Input() model: any
   environment = environment
   save_model: any;
   passwordVisible = false;
   password?: string;
-  name:string = ""
+  name: string = ""
   user_data: any[] = []
   loading = false;
   avatarUrl?: string;
@@ -45,7 +46,7 @@ export class CreateUserComponent implements OnInit {
     this.save_model = {
       ...this.model
     }
-  // this.save_model = this.model
+    // this.save_model = this.model
   }
 
   create() {
@@ -54,52 +55,74 @@ export class CreateUserComponent implements OnInit {
       email: this.save_model.email,
       password: this.save_model.password,
       role: this.save_model.role,
+      position: this.save_model.position,
       image: this.save_model.image
     }
     console.log(model)
 
-    if(!model.name.trim()){
+    if (!model.name.trim()) {
       this.message.create('error', 'กรุณากรอกชื่อ');
       return
     }
-     
-    if(!model.email.trim() || !re.test(model.email)){
+
+    // alert(model.name.trim())
+
+    if (!model.email.trim() || !re.test(model.email)) {
       this.message.create('error', 'กรุณากรอก email');
       return
     }
-    
+
+    model.name = model.name.trim()
+    model.email = model.email.trim()
+
     // return
-    if(this.state == "create"){
-      this.userDataService.create(model).then((res:any)=>{
-      
+    if (this.state == "create") {
+      this.userDataService.create(model).then((res: any) => {
         this.name = ""
         // this.getAllUserdata()
         this.nzDrawerRef.close(true)
       })
-      .catch((err:any)=>{
-  
-      })
+        .catch((err: any) => {
+
+        })
     }
   }
 
-  update(id:string) {
+  update(id: string) {
     let model = {
       name: this.save_model.name,
       email: this.save_model.email,
-      password: this.save_model.password
+      password: this.save_model.password,
+      role: this.save_model.role,
+      position: this.save_model.position,
+      image: this.save_model.image
     }
     console.log(model)
+
+    if (!model.name.trim()) {
+      this.message.create('error', 'กรุณากรอกชื่อ');
+      return
+    }
+
+    if (!model.email.trim() || !re.test(model.email)) {
+      this.message.create('error', 'กรุณากรอก email');
+      return
+    }
+
+    model.name = model.name.trim()
+    model.email = model.email.trim()
+
     // return
-    if(this.state == "edit"){
-      this.userDataService.update(model, id).then((res:any)=>{
-      
+    if (this.state == "edit") {
+      this.userDataService.update(model, id).then((res: any) => {
+
         // this.name = ""
         // this.getAllUserdata()
         this.nzDrawerRef.close(true)
       })
-      .catch((err:any)=>{
-  
-      })
+        .catch((err: any) => {
+
+        })
     }
   }
 
@@ -130,7 +153,7 @@ export class CreateUserComponent implements OnInit {
 
   handleChange(info: { file: NzUploadFile }): void {
     console.log(info);
-    
+
     switch (info.file.status) {
       case 'uploading':
         this.loading = true;
@@ -149,10 +172,5 @@ export class CreateUserComponent implements OnInit {
         break;
     }
   }
-    
+
 }
-
-
-  
-  
-

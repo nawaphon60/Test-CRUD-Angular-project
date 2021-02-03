@@ -1,18 +1,43 @@
-.header {
+.profile {
     width: 100%;
-    height: 250px;
-    background: linear-gradient(45deg, #283848 61%, #4d5c8d);
-    position: relative;
+    height: 763px;
+    padding-right: 40px;
+    background: linear-gradient(90deg, #001529 61%, #465F84);
+    /* position: relative; */
     border-radius: 5px;
 }
+
+.profile img {
+    width: 244px;
+    height: 244px;
+    object-fit: cover;
+    border-radius: 50%;
+    /* position: absolute; */
+    margin-top: 28%;
+    border: 3px solid #ffffff;
+}
+
 .card {
     /* max-width: 100%;
     width: 500px; */
-    margin: auto;
+    height: 90%;
+    margin: auto 0 auto 0;
+    padding: 55px;
     border: none;
-    box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
-    position: absolute;
+    border-radius: 15px;
+    /* background: linear-gradient(90deg, #ffffff 61%, #424c54); */
+    /* box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1); */
+    /* position: absolute;
     z-index: 1;
     left: 5%;
-    top: 10%;
+    top: 10%; */
+}
+
+.card h2 {
+    color: #6c757d;
+}
+
+.card p {
+    font-size: 20px;
+    color: #6c6c6c;
 }

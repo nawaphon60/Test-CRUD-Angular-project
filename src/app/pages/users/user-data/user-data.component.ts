@@ -32,7 +32,6 @@ export class UserDataComponent implements OnInit, AfterViewInit {
     private userDataService: UserDataService,
     private nzDrawerService: NzDrawerService,
     private nzModalService: NzModalService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -41,11 +40,6 @@ export class UserDataComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.getAllUserdata()
-  }
-
-  loguot(){
-    localStorage.removeItem('token')
-    this.router.navigate(['/login'])
   }
 
   async getAllUserdata() {
@@ -93,14 +87,13 @@ export class UserDataComponent implements OnInit, AfterViewInit {
 
       },
       nzWrapClassName: 'TESTT YYYY'
-    })
-      .afterClose.subscribe((r: boolean) => {
-        drawerRef.unsubscribe()
-        console.log('Drawer(Template) close');
-        if (r) {
-          this.getAllUserdata()
-        }
-      });
+    }).afterClose.subscribe((r: boolean) => {
+      drawerRef.unsubscribe()
+      console.log('Drawer(Template) close');
+      if (r) {
+        this.getAllUserdata()
+      }
+    });
   }
 
   async createUser() {

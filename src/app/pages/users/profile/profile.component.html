@@ -1,16 +1,17 @@
-<div class="header">
-    <div class="card p-3 col-11" *ngFor="let userdata of userdata.data">
+<div class="profile row m-0">
+    <div class="text-center col-3 p-0" *ngFor="let userdata of userdata.data">
+        <img src="{{userdata.image}}" alt="Avatar">
+    </div>
 
-        <h2>Profile</h2>
+    <div class="card col-9" *ngFor="let userdata of userdata.data">
+
+        <h2>PROFILE</h2>
         <p>Name : {{userdata.name}} </p>
         <p>Email : {{userdata.email}}</p>
-        <p>Role : {{userdata.role}}</p>
         <p>Position : {{userdata.work_name}}</p>
+        <p>Role : {{userdata.role}}</p>
         <p>Created : {{userdata.created_at == null? 'null' : userdata.created_at | date: 'medium'}}</p>
         <p>Updated : {{userdata.updated_at == null? 'null' : userdata.updated_at | date: 'medium'}}</p>
-    
+
     </div>
 </div>
-
-
-

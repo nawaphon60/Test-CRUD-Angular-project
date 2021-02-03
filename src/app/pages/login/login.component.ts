@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
     this.loginService.login(model).then((res:any)=>{ 
       
       localStorage.setItem('token', JSON.stringify(res))
+
+      
       this.router.navigate(['/users/user-data'])
 
     }).catch((err:any)=>{

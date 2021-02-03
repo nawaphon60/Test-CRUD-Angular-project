@@ -14,6 +14,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzTableModule } from 'ng-zorro-antd/table';
+
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     NzModalModule,
     NzMessageModule,
     NzPaginationModule,
-    NzInputModule
+    NzInputModule,
+    NzTableModule
   ]
 })
 export class UserDataModule { }
